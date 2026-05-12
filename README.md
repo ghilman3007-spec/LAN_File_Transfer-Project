@@ -1,0 +1,1 @@
+A Basic practice demonstration of Client--Server connection using the UserDatagramProtocol
