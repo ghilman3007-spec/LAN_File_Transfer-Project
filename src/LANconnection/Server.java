@@ -12,9 +12,13 @@ public class Server {
         
         while(true){
             
+            // server socket
             DatagramSocket UDPsocket = new DatagramSocket(port);
-            byte[] PacketBuffer = new byte[1024];
+
+            // data packet buffer
+            byte[] PacketBuffer = new byte[8192];
             
+            // data packet initialization
             DatagramPacket UDPpacket = new DatagramPacket(PacketBuffer, PacketBuffer.length);
             
             System.out.println("Listening from local address: " + UDPsocket.getLocalAddress());
@@ -25,10 +29,9 @@ public class Server {
             InetAddress remoteClient = UDPpacket.getAddress();
             int remotePort = UDPpacket.getPort();
             String message = new String(UDPpacket.getData(), 0, UDPpacket.getLength());
-            // String message = UDPpacket.getData().toString();
 
             System.out.println("Received the following data from a remote host:\n");
-            System.out.println("Client Address (HIP): " + remoteClient);
+            System.out.println("Client Address (Guest IP): " + remoteClient);
             System.out.println("Client Port: " + remotePort);
             System.out.println("Data Received: " + message);
             System.out.println("\n\n");
