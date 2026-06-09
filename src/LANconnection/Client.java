@@ -10,27 +10,39 @@ public class Client {
     
     public static void main(String[] args) throws UnknownHostException, SocketException, IOException {
         
+        int port;
+        String serverIP;
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter the message you want to send: ");
-        String message = sc.nextLine().trim();
-        sc.close();
 
-        byte[] buffer = message.getBytes();
-        int port = 1234;
+        System.out.println("Enter the port to connect to: ");
+        port = Integer.parseInt(sc.nextLine().trim());
 
-        InetAddress hostIP = InetAddress.getLocalHost();
+        System.out.println("Enter the server address: ");
+        serverIP = sc.nextLine().trim();
 
-        DatagramPacket UDPpacket = new DatagramPacket(buffer, buffer.length, hostIP, port);
+        while(true){
 
-        System.out.println("Host at ip: " + hostIP);
-        System.out.println("Connecting to port no. : " + port);
-        System.out.println("\nConnecting to Host...\n");
-        
-        DatagramSocket UDPsocket = new DatagramSocket();
-        UDPsocket.send(UDPpacket);
+            System.out.print("Enter the message you want to send: ");
+            String message = sc.nextLine().trim();
 
-        System.out.println("Data packet Sent!\n");
+            byte[] buffer = message.getBytes();
+            
+            InetAddress hostIP = InetAddress.getByName(serverIP);
 
-        UDPsocket.close();
+            DatagramPacket UDPpacket = new DatagramPacket(buffer, buffer.length, hostIP, port);
+            
+            System.out.println("Host at ip: " + hostIP.getHostAddress());
+            System.out.println("Connecting to port no. : " + port);
+            System.out.println("\nConnecting to Host...\n");
+            
+            DatagramSocket UDPsocket = new DatagramSocket();
+
+            UDPsocket.send(UDPpacket);
+
+            System.out.println("Data packet Sent!\n");
+            
+
+            UDPsocket.close();
+        }
     }
 }
